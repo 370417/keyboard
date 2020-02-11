@@ -4,26 +4,26 @@ export class Room {
     db: firebase.firestore.Firestore;
     targetEmail: string;
     user: User;
-    track: MediaStreamTrack;
-    stream: MediaStream;
-    onAddTrack: (event: RTCTrackEvent) => any;
     connection: RTCPeerConnection;
+    channel: RTCDataChannel;
 
     constructor(
         db: firebase.firestore.Firestore,
         targetEmail: string,
         user: User,
-        track: MediaStreamTrack,
-        stream: MediaStream,
-        onAddTrack: (event: RTCTrackEvent) => any,
+        onmessage: (this: RTCDataChannel, ev: MessageEvent) => any,
     ) {
         this.db = db;
         this.targetEmail = targetEmail;
         this.user = user;
-        this.track = track;
-        this.stream = stream;
-        this.onAddTrack = onAddTrack;
         this.connection = this.createPeerConnection();
+
+        this.channel = this.connection.createDataChannel('keys', {
+            ordered: false,
+            negotiated: true,
+            id: 0,
+        });
+        this.channel.onmessage = onmessage;
 
         // begin listening for signals
         const targetUserQuery = db.collection('users').where('email', '==', targetEmail);
@@ -40,6 +40,12 @@ export class Room {
         }, console.error);
     }
 
+    send(msg: string) {
+        if (this.channel.readyState == 'open') {
+            this.channel.send(msg);
+        }
+    }
+
     private createPeerConnection(): RTCPeerConnection {
         const connection = new RTCPeerConnection({
             iceServers: [
@@ -48,12 +54,12 @@ export class Room {
             ]
         });
 
-        connection.ontrack = this.onAddTrack;
+        // connection.ontrack = this.onAddTrack;
         connection.onnegotiationneeded = this.onNegotiationNeeded.bind(this);
         connection.onicecandidate = this.onIceCandidate.bind(this);
         connection.oniceconnectionstatechange = this.onIceConnectionStateChange.bind(this);
     
-        connection.addTrack(this.track, this.stream);
+        // connection.addTrack(this.track, this.stream);
 
         return connection;
     }
