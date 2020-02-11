@@ -2,24 +2,35 @@
 <html lang="en-US">
     <head>
         <meta charset="utf-8">
-        <title>Diary</title>
+        <title>SSF2 Virtual Keyboard</title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" type="text/css" href="index.css">
     </head>
     <body>
-        <svg height="0">
-            <filter id="filter">
-                    <feColorMatrix values="0 0 0 0 0
-                                           0 0 0 0 0
-                                           0 0 0 0 0
-                                          -1 0 0 1 0"/> 
-                                          <!-- Look into Firefox bug where last row ending in -->
-                                          <!-- 0 1 instead of 1 0 causes a black frame around the canvas -->
-            </filter>
-        </svg>
-        <div id="container">
-            <canvas id="canvas" width="400" height="566"></canvas>
-            <video id="video" autoplay muted playsinline width="400" height="566"></video>
+        <div id="main">
+            <label for="up">up</label><input type="text" class="key" id="up" name="up">
+            <label for="down">down</label><input type="text" class="key" id="down" name="down">
+            <label for="left">left</label><input type="text" class="key" id="left" name="left">
+            <label for="right">right</label><input type="text" class="key" id="right" name="right">
+            <label for="jump1">jump1</label><input type="text" class="key" id="jump1" name="jump1">
+            <label for="jump2">jump2</label><input type="text" class="key" id="jump2" name="jump2">
+            <label for="attack">attack</label><input type="text" class="key" id="attack" name="attack">
+            <label for="special">special</label><input type="text" class="key" id="special" name="special">
+            <label for="grab">grab</label><input type="text" class="key" id="grab" name="grab">
+            <label for="taunt">taunt</label><input type="text" class="key" id="taunt" name="taunt">
+            <label for="walk">walk</label><input type="text" class="key" id="walk" name="walk">
+            <label for="pause">pause</label><input type="text" class="key" id="pause" name="pause">
+            <label for="shield1">shield1</label><input type="text" class="key" id="shield1" name="shield1">
+            <label for="shield2">shield2</label><input type="text" class="key" id="shield2" name="shield2">
+            <label for="c_up">c_up</label><input type="text" class="key" id="c_up" name="c_up">
+            <label for="c_down">c_down</label><input type="text" class="key" id="c_down" name="c_down">
+            <label for="c_left">c_left</label><input type="text" class="key" id="c_left" name="c_left">
+            <label for="c_right">c_right</label><input type="text" class="key" id="c_right" name="c_right">
+        </div>
+        <input type="checkbox" id="lock" name="lock"><label for="lock">Lock controls</label>
+        <div id="radios">
+            <input type="radio" id="send" name="radio" checked><label for="send">Send</label>
+            <input type="radio" id="receive" name="radio"><label for="receive">Receive</label>
         </div>
         <script src="./index.ts"></script>
     </body>

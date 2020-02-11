@@ -4,6 +4,9 @@
  * - users collection
  *   document id: user id
  *   - email
+ *   - controls subcollection
+ *     document id: 'send' | 'receive'
+ *     - one field for each possible control
  *   - rooms subcollection
  *     document id: other person's email
  *     - signal map: (represents signal sent from user id to peer uid)

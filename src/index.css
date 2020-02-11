@@ -16,3 +16,19 @@ canvas {
     top: 0;
     filter: url(#filter);
 }
+
+#main {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto;
+    justify-items: end;
+}
+
+label {
+    padding-right: 1em;
+    color: white;
+}
+
+.key::before {
+    display: block;
+    content: attr(id);
+}
